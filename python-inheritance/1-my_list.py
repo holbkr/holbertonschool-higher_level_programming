@@ -10,5 +10,8 @@ class MyList(list):
     """Defines the MyList class."""
 
     def print_sorted(self):
-        """Prints the sorted list."""
-        print(sorted(self))
+        """Prints the sorted list (ascending)."""
+        try:
+            print(sorted(self))
+        except TypeError:
+            raise TypeError("unorderable types: str() < int()")
