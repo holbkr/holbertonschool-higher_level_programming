@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Script that lists all `State` objects that contain
-the letter `a` from the database `hbtn_0e_6_usa`.
+Script that lists all `State` objects, and corresponding
+`City` objects, contained in the database `hbtn_0e_101_usa`.
 
 Arguments:
     mysql username (str)
@@ -13,7 +13,8 @@ import sys
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import Session
 from sqlalchemy.engine.url import URL
-from model_state import Base, State
+from relationship_state import Base, State
+from relationship_city import City
 
 
 if __name__ == "__main__":
@@ -29,7 +30,9 @@ if __name__ == "__main__":
 
     session = Session(bind=engine)
 
-    q = session.query(State).filter(State.name.like('%a%')).order_by(State.id)
+    states = session.query(State)
 
-    for instance in q:
-        print("{}: {}".format(instance.id, instance.name))
+    for state in states:
+        print("{}: {}".format(state.id, state.name))
+        for city in state.cities:
+            print("\t{}: {}".format(city.id, city.name))

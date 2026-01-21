@@ -5,7 +5,7 @@ Contains the City class that inherits from Base = declarative_base()
 """
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql.schema import ForeignKey
-from model_state import Base
+from relationship_state import Base
 
 
 class City(Base):

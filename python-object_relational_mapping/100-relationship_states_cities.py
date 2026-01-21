@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Script that lists all `State` objects that contain
-the letter `a` from the database `hbtn_0e_6_usa`.
+Script that creates the `State` “California” with the
+`City` “San Francisco” from the database `hbtn_0e_100_usa`.
 
 Arguments:
     mysql username (str)
@@ -13,7 +13,8 @@ import sys
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import Session
 from sqlalchemy.engine.url import URL
-from model_state import Base, State
+from relationship_state import Base, State
+from relationship_city import City
 
 
 if __name__ == "__main__":
@@ -29,7 +30,8 @@ if __name__ == "__main__":
 
     session = Session(bind=engine)
 
-    q = session.query(State).filter(State.name.like('%a%')).order_by(State.id)
+    newState = State(name="California")
+    newState.cities.append(City(name="San Francisco"))
 
-    for instance in q:
-        print("{}: {}".format(instance.id, instance.name))
+    session.add(newState)
+    session.commit()
