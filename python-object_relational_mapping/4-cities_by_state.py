@@ -1,30 +1,30 @@
 #!/usr/bin/python3
-"""
-Script that lists all `cities` from the database `hbtn_0e_4_usa`.
-
-Arguments:
-    mysql username (str)
-    mysql password (str)
-    database name (str)
-"""
-
-import sys
+"""4-cities_by_state.py
+Module that connects to a database thanks to severals arguments in the
+command line such as your username, your password and the name of the
+database, it also give you the list of cities with their id ans states"""
 import MySQLdb
+import sys
 
 if __name__ == "__main__":
-    mySQL_u = sys.argv[1]
-    mySQL_p = sys.argv[2]
-    db_name = sys.argv[3]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
 
-    # By default, it will connect to localhost:3306
-    db = MySQLdb.connect(user=mySQL_u, passwd=mySQL_p, db=db_name)
+    db = MySQLdb.connect(host="localhost",
+                         user=mysql_username,
+                         passwd=mysql_password,
+                         db=database_name,
+                         port=3306)
     cur = db.cursor()
 
-    cur.execute("SELECT c.id, c.name, s.name \
-                 FROM cities c INNER JOIN states s \
-                 ON c.state_id = s.id \
-                 ORDER BY c.id")
-    rows = cur.fetchall()
+    cur.execute("SELECT cities.id, cities.name, states.name FROM cities "
+                "INNER JOIN states "
+                "ON cities.state_id = states.id "
+                "ORDER BY cities.id ASC")
 
-    for row in rows:
+    for row in cur.fetchall():
         print(row)
+
+    cur.close()
+    db.close()

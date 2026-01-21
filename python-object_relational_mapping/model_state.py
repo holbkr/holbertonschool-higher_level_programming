@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-"""This is the State module.
-
-Contains the State class that inherits from Base = declarative_base()
-"""
+"""model_state.py
+Creation of the class state for SQLAlchemy in order to use ORM"""
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -10,14 +8,7 @@ Base = declarative_base()
 
 
 class State(Base):
-    """This class links to the `states` table of our database.
-
-    Attributes:
-        id (int): id of the state.
-        name (str): name of the state.
-    """
-
+    '''Class that represents the table states in a database'''
     __tablename__ = 'states'
-
-    id = Column(Integer, autoincrement=True, nullable=False, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(128), nullable=False)
