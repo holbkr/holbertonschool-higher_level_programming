@@ -1,1 +1,1 @@
-jsjsjsjjs
+Basics exercises on Javascript
