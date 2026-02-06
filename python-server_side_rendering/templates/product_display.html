@@ -1,0 +1,30 @@
+   <!doctype html>
+   <html lang="en">
+   <head>
+       <title>Items List</title>
+   </head>
+   <body>
+        {% include 'header.html' %}
+        {% if data.__class__.__name__ == 'list' %}
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    {% for value in data %}
+                        <td>{{value.name}}</td>
+                        <td>{{value.category}}</td>
+                        <td>{{value.price}}</td>
+                    {% endfor %}
+                </tr>
+            </table>
+
+        {% else %}
+            <p>{{data}}</p>
+        {% endif %}
+
+        {% include 'footer.html' %}
+   </body>
+   </html>
